@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { launchCamera, launchImageLibrary, ImagePickerResponse } from 'react-native-image-picker';
-import TextRecognition from 'react-native-text-recognition'; // Import TextRecognition
+import TextRecognition from 'react-native-text-recognition';
 
 const App: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
@@ -45,7 +37,8 @@ const App: React.FC = () => {
         throw new Error('Image URI is null or empty');
       }
 
-      const result = await TextRecognition.recognize(uri); // Call recognize method with URI
+      const result = await TextRecognition.recognize(uri);
+      console.log(result);
 
       if (Array.isArray(result)) {
         const joinedText = result.join('\n');
@@ -68,20 +61,20 @@ const App: React.FC = () => {
           <Text>No Image</Text>
         )}
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={takePhoto} style={styles.button}>
-          <Text style={styles.buttonText}>Take Photo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={chooseImage} style={styles.button}>
-          <Text style={styles.buttonText}>Choose Image</Text>
-        </TouchableOpacity>
-      </View>
-      {text && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>Text Recognized:</Text>
-          <Text style={styles.result}>{text}</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={takePhoto} style={styles.button}>
+            <Text style={styles.buttonText}>Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={chooseImage} style={styles.button}>
+            <Text style={styles.buttonText}>Choose Image</Text>
+          </TouchableOpacity>
         </View>
-      )}
+        {text && (
+          <ScrollView style={styles.resultContainer}>
+            <Text style={styles.resultText}>Text Recognized:</Text>
+            <Text style={styles.result}>{text}</Text>
+          </ScrollView>
+        )}
     </SafeAreaView>
   );
 };
@@ -90,17 +83,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
   },
   cameraContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  imageContainer: {
+    marginBottom: 20,
+  },
   previewImage: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
+  },
+  placeholderText: {
+    fontSize: 16,
+    fontStyle: 'italic',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -121,12 +126,15 @@ const styles = StyleSheet.create({
   resultContainer: {
     padding: 20,
     backgroundColor: '#f0f0f0',
+    borderRadius: 10,
     marginTop: 20,
+    alignSelf: 'stretch',
+    maxHeight: 200,
   },
   resultText: {
     fontWeight: 'bold',
-    textAlign: 'center',
     marginBottom: 10,
+    textAlign: 'center',
   },
   result: {
     textAlign: 'center',
