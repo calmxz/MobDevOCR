@@ -5546,6 +5546,11 @@ react-native-text-recognition@^1.0.0:
   resolved "https://registry.npmjs.org/react-native-text-recognition/-/react-native-text-recognition-1.0.0.tgz"
   integrity sha512-zJ6rhpLuoW0eBRly5KcA46dQNAEIf/O9+XC+C0uU7PoAnSiGT4Owo5vMr8MU2SiPGYYlI/mZilnEjaQYwyf5bw==
 
+react-native-tts@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/react-native-tts/-/react-native-tts-4.1.0.tgz"
+  integrity sha512-tvf3lQ6u9MqztUie37qoPw5YQPqi0ql1lPhDsBBs/RRA6A/H1J9X9H/qb1A0Hx0ZpjavrEdtVSqQQ2JDZvZCTQ==
+
 react-native@*, react-native@0.73.5:
   version "0.73.5"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.5.tgz"
